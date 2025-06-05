@@ -4,10 +4,14 @@ FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
 # Copie le code source et les fichiers de configuration Maven
-# Générer le secret et le stocker dans une variable d'environnement
-RUN SECRET_KEY=$(openssl rand -base64 32) 
+
 COPY pom.xml .
 COPY src ./src
+
+# Générer la clé et injecter dans le vrai fichier
+RUN SECRET=$(openssl rand -base64 64 | tr -d '\n') && \
+    sed -i "s|__SECRET_KEY_PLACEHOLDER__|${SECRET}|g" src/main/resources/application.yml
+
 # Générer le keystore
 RUN keytool -genkeypair \
     -alias localhost \

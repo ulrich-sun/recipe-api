@@ -25,7 +25,8 @@ logging:
 
 app:
   frontend-url: ${FRONTEND_URL:http://localhost:5173}
-  secret-key: ${SECRET_KEY:random_secret_key}
+  secret-key: __SECRET_KEY_PLACEHOLDER__
+    #  secret-key: Nnyu9QZEZka7BtDUzpMR0oc334KXdLBUhjyNlSXsBFE= 
   expiration-time: 86400000
 
 server:
