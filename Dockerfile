@@ -15,9 +15,9 @@ RUN keytool -genkeypair \
     -keysize 2048 \
     -storetype PKCS12 \
     -keystore keystore.p12 \
-    -storepass changeit \
+    -storepass password \
     -validity 3650 \
-    -dname "CN=localhost, OU=Dev, O=Example, L=City, S=State, C=FR" > src/main/resources/keystore.p12
+    -dname "CN=localhost, OU=Dev, O=Example, L=City, S=State, C=FR" && mv /app/keystore.p12 src/main/resources/keystore.p12
 
 # Compile le projet et package le jar exécutable
 RUN mvn clean package -DskipTests
