@@ -24,8 +24,8 @@ logging:
     org.springframework.web: debug
 
 app:
-  frontend-url: http://localhost:5173
-  secret-key: your_secret_key
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  secret-key: ${SECRET_KEY:random_secret_key}
   expiration-time: 86400000
 
 server:
@@ -34,4 +34,4 @@ server:
     key-store: classpath:keystore.p12
     key-store-password: password
     key-store-type: PKCS12
-    key-alias: your_alias
+    key-alias: localhost
