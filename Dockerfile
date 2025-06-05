@@ -28,13 +28,15 @@ RUN mvn clean package -DskipTests
 
 # Étape 2 : Exécution de l'application avec une image plus légère
 FROM eclipse-temurin:17-jdk-alpine
-
+RUN apk add --no-cache bash
 WORKDIR /app
-
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /app/wait-for-it.sh
+RUN chmod +x /app/wait-for-it.sh
 # Copie le jar généré de l'étape précédente
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 EXPOSE 8443
-ENTRYPOINT ["java", "-jar", "app.jar"]
+#ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["/app/wait-for-it.sh", "db:3306", "--timeout=20", "--", "java", "-jar", "app.jar"]
 
