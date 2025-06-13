@@ -27,7 +27,7 @@ services:
       - MYSQL_USER=recipe_user
       - MYSQL_PASSWORD=recipe_pass
     volumes:
-      - recipe_db_data:/var/lib/mysql
+      - recipe_db_data_new:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "recipe_user", "-precipe_pass"]
       interval: 10s
@@ -53,7 +53,7 @@ services:
       - recipe-net
 
 volumes:
-  recipe_db_data:
+  recipe_db_data_new:
     driver: local
 
 networks:
